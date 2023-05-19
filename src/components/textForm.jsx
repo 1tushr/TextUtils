@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 export default function TextForm(props) {
   const [text, setText] = useState("Enter your text here");
+  // const defaultText="Enter your text here";
   // setText=("Enter the text here ");
 
   const handleOnChange = (e) => {
@@ -14,9 +15,21 @@ export default function TextForm(props) {
   }
 
    const handleLoclick=(event)=>{
-    let ltext=text.toLocaleLowerCase();
+    let ltext=text.toLowerCase();
     setText(ltext);
   }
+  const countWords=()=>{
+    if (text.trim()===""){
+      return 0;
+    }
+    return text.trim().split(/\s+/).length
+  }
+
+const resetText=()=>{
+  setText("Enter your text here");
+
+}
+
 
   return (
     <div>
@@ -25,7 +38,10 @@ export default function TextForm(props) {
         <label
           htmlFor="exampleFormControlTextarea1"
           className="form-label"
+
+        
         ></label>
+       
         <div>
           <textarea
             className="form-control"
@@ -39,6 +55,18 @@ export default function TextForm(props) {
       </div>
       <button className="btn btn-primary mx-3" onClick={handleUpclick}>Convert to UpperCase</button>
       <button className="btn btn-primary" onClick={handleLoclick}>Convert to LowerCase</button>
+      <button className="btn btn-success mx-3 "onClick={resetText}>Reset Text</button>
+      <div className="my-3 mx-3">
+      <h2 >Your Text Summary </h2>
+      <p>{countWords()} <b>words and</b>  {text.length} <b>characters</b></p>
+      <p>{0.008*countWords()} <b>Minutes Read</b></p>
+      <h2 className="my-3">Preview</h2>
+        {text}
+      </div>
+
+
+
+
     </div>
   );
 }
